@@ -765,7 +765,7 @@
     obj[F.visitor_id] = visitorId();
     obj[F.country] = country;
     obj[F.page] = location.pathname;
-    obj[F.duration_seconds] = 0;
+    obj[F.duration_seconds] = "0";
     obj[F.visited_at] = new Date().toISOString();
 
     var insert =
@@ -783,7 +783,7 @@
   function beat() {
     if (!rowId || document.hidden) return;
     var set = {};
-    set[F.duration_seconds] = Math.round((Date.now() - start) / 1000);
+    set[F.duration_seconds] = String(Math.round((Date.now() - start) / 1000));
     var update =
       "mutation($id: bigint!, $set: " + T + "_set_input!) { update_" + T +
       "_by_pk(pk_columns: {id: $id}, _set: $set) { id } }";
@@ -792,7 +792,6 @@
 
   window.addEventListener("pagehide", beat);
 })();
-        });
     </script>
 </body>
 </html>
